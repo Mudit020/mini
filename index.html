@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarVilla</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #212121; /* Dark background */
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e74c3c, #f39c12, #8e44ad); /* Multi-color gradient for dynamic header */
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 5px solid #e74c3c; /* Bright accent border */
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 0 15px rgba(231, 76, 60, 1), 0 0 30px rgba(241, 196, 15, 1); /* Neon glow effect */
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-top: 10px;
+            text-shadow: 0 0 5px rgba(241, 196, 15, 1); /* Neon glow effect */
+        }
+
+        .search-container {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #2ed573, #1e90ff); /* Neon gradient for search bar */
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #333;
+            color: #fff;
+        }
+
+        .search-bar:focus {
+            box-shadow: 0 0 10px rgba(0, 255, 255, 1); /* Neon glow effect on focus */
+            background-color: #444;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px 20px;
+        }
+
+        .car-card {
+            background: linear-gradient(135deg, #8e44ad, #3498db); /* Bright gradient for car cards */
+            border-radius: 15px;
+            width: 280px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* Darker shadow on hover */
+        }
+
+        .car-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .car-card .car-details {
+            padding: 20px;
+        }
+
+        .car-card .car-details h3 {
+            font-size: 1.8rem;
+            color: #f39c12;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 1); /* Neon yellow glow effect */
+        }
+
+        .car-card .car-details p {
+            font-size: 1rem;
+            color: #bdc3c7;
+            margin: 5px 0;
+        }
+
+        .car-card .car-details .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            text-shadow: 0 0 5px rgba(231, 76, 60, 1); /* Neon red glow effect */
+        }
+        /* See button style */
+.see-btn {
+    background: linear-gradient(135deg, #e74c3c, #f39c12, #8e44ad); /* Colorful gradient */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.see-btn:hover {
+    background: linear-gradient(135deg, #f39c12, #8e44ad, #2ed573); /* Hover effect with different gradient */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.6); /* Neon glow effect on hover */
+}
+
+.see-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 1); /* Neon glow effect when focused */
+}
+
+        
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #34495e; /* Dark footer background */
+            color: white;
+            margin-top: 30px;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Shadow for footer */
+        }
+
+        footer p {
+            margin: 0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Footer glow effect */
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 90%;
+            }
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>CarVilla</h1>
+    <p>Your Trusted Source for Premium Cars</p>
+</header>
+
+<!-- Search Bar -->
+<div class="search-container">
+    <input type="text" id="searchBar" class="search-bar" onkeyup="searchCars()" placeholder="Search for a car...">
+</div>
+
+<!-- Car Listings -->
+<div class="container" id="carContainer">
+    <!-- Mahindra XUV700 -->
+    
+
+    <!-- Tata Safari -->
+    <div class="car-card" data-name="Tata Safari">
+        <img src="photo/sfari.webp" alt="Tata Safari">
+        <div class="car-details">
+            <h3>Tata Safari</h3>
+            <p class="price">₹22,50,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.0L Turbo Diesel</p>
+            <p>Mileage: 16-18 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+
+    <!-- Hyundai Creta -->
+    <div class="car-card" data-name="Hyundai Creta">
+        <img src="photo/creta.webp" alt="Hyundai Creta">
+        <div class="car-details">
+            <h3>Hyundai Creta</h3>
+            <p class="price">₹18,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 1.5L Petrol / 1.5L Diesel</p>
+            <p>Mileage: 17-19 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+
+    <!-- Kia Seltos -->
+    <div class="car-card" data-name="Kia Seltos">
+        <img src="photo/seltos.jpg" alt="Kia Seltos">
+        <div class="car-details">
+            <h3>Kia Seltos</h3>
+            <p class="price">₹19,50,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 1.5L Petrol / 1.5L Diesel</p>
+            <p>Mileage: 17-18 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+
+    <!-- MG Hector -->
+    <div class="car-card" data-name="MG Hector">
+        <img src="photo/hector.webp" alt="MG Hector">
+        <div class="car-details">
+            <h3>MG Hector</h3>
+            <p class="price">₹20,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 1.5L Petrol / 2.0L Diesel</p>
+            <p>Mileage: 14-16 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    <div class="car-card" data-name="Lamborghini Revuelto">
+        <img src="photo/lambo.avif" alt="Lamborghini Revuelto">
+        <div class="car-details">
+            <h3>Lamborghini Revuelto</h3>
+            <p class="price">₹6,50,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 6.5L V12 Hybrid</p>
+            <p>Mileage: 6-8 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    <div class="car-card" data-name="Maruti Suzuki Dzire 2024">
+        <img src="photo/dzire.avif" alt="Maruti Suzuki Dzire 2024">
+        <div class="car-details">
+            <h3>Maruti Suzuki Dzire 2024</h3>
+            <p class="price">₹8,50,000</p>
+            <p>Year: 2024</p>
+            <p>Engine: 1.2L Petrol</p>
+            <p>Mileage: 22-24 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Rolls Royce Ghost">
+        <img src="photo/ghost.webp" alt="Rolls Royce Ghost">
+        <div class="car-details">
+            <h3>Rolls Royce Ghost</h3>
+            <p class="price">₹7,00,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 6.75L V12 Twin-Turbo</p>
+            <p>Mileage: 8-10 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    <div class="car-card" data-name="Mahindra XUV700">
+        <img src="photo/XUV700.jpg" alt="Mahindra XUV700">
+        <div class="car-details">
+            <h3>Mahindra XUV700</h3>
+            <p class="price">₹22,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.0L Turbo Petrol / 2.2L Diesel</p>
+            <p>Mileage: 14-16 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="BMW X7">
+        <img src="photo/x7.webp" alt="BMW X7">
+        <div class="car-details">
+            <h3>BMW X7</h3>
+            <p class="price">₹1,15,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 3.0L Inline-6 / 4.4L V8</p>
+            <p>Mileage: 8-12 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    
+    
+    <div class="car-card" data-name="Tata Harrier">
+        <img src="photo/harrier.webp" alt="Tata Harrier">
+        <div class="car-details">
+            <h3>Tata Harrier</h3>
+            <p class="price">₹20,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.0L Turbo Diesel</p>
+            <p>Mileage: 16-17 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Scorpio N">
+        <img src="photo/scorpio n.webp" alt="Scorpio N">
+        <div class="car-details">
+            <h3>Scorpio N</h3>
+            <p class="price">₹15,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.0L Turbo Petrol / 2.2L Turbo Diesel</p>
+            <p>Mileage: 14-18 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Mahindra BE 6">
+        <img src="photo/Be 6.avif" alt="Mahindra BE 6">
+        <div class="car-details">
+            <h3>Mahindra BE 6</h3>
+            <p class="price">₹25,00,000</p>
+            <p>Year: 2024</p>
+            <p>Engine: Electric Motor (400-500 km range)</p>
+            <p>Mileage: N/A (Electric)</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Thar Roxx">
+        <img src="photo/roxx.avif" alt="Thar Roxx">
+        <div class="car-details">
+            <h3>Thar Roxx</h3>
+            <p class="price">₹12,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.0L Turbo Petrol / 2.2L Turbo Diesel</p>
+            <p>Mileage: 13-15 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Fortuner">
+        <img src="photo/fortuner.webp" alt="Fortuner">
+        <div class="car-details">
+            <h3>Fortuner</h3>
+            <p class="price">₹45,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.7L Petrol / 2.8L Diesel</p>
+            <p>Mileage: 10-12 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Tata Curvv">
+        <img src="photo/curv.avif" alt="Tata Curvv">
+        <div class="car-details">
+            <h3>Tata Curvv</h3>
+            <p class="price">₹18,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 1.5L Petrol / 1.5L Diesel</p>
+            <p>Mileage: 17-19 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    <div class="car-card" data-name="Mercedes S-Class">
+        <img src="photo/s class.webp" alt="Mercedes S-Class">
+        <div class="car-details">
+            <h3>Mercedes S-Class</h3>
+            <p class="price">₹1,85,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 3.0L Diesel / 4.0L V8 Petrol</p>
+            <p>Mileage: 10-14 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    <div class="car-card" data-name="Jeep Wrangler">
+        <img src="photo/wrangler.webp" alt="Jeep Wrangler">
+        <div class="car-details">
+            <h3>Jeep Wrangler</h3>
+            <p class="price">₹65,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 2.0L Turbo Petrol / 3.0L Diesel</p>
+            <p>Mileage: 8-10 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="car-card" data-name="Ford Mustang GT">
+        <img src="photo/mustang gt.webp" alt="Ford Mustang GT">
+        <div class="car-details">
+            <h3>Ford Mustang GT</h3>
+            <p class="price">₹74,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: 5.0L V8</p>
+            <p>Mileage: 8-10 km/l</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    <div class="car-card" data-name="Audi Q8 E-Tron">
+        <img src="photo/Q8.webp" alt="Audi Q8 E-Tron">
+        <div class="car-details">
+            <h3>Audi Q8 E-Tron</h3>
+            <p class="price">₹1,07,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: Electric Motor (370-400 km range)</p>
+            <p>Mileage: N/A (Electric)</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    
+    <div class="car-card" data-name="Mini Cooper SE">
+        <img src="photo/se.webp" alt="Mini Cooper SE">
+        <div class="car-details">
+            <h3>Mini Cooper SE</h3>
+            <p class="price">₹50,00,000</p>
+            <p>Year: 2023</p>
+            <p>Engine: Electric Motor (184 PS)</p>
+            <p>Mileage: 200-250 km (Electric)</p>
+            <button class="see-btn">See</button>
+        </div>
+    </div>
+    
+    
+    
+    
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 CarVilla. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Search function to filter car cards based on input
+    function searchCars() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let carCards = document.querySelectorAll('.car-card');
+
+        carCards.forEach(function(card) {
+            let carName = card.getAttribute('data-name').toLowerCase();
+            if (carName.includes(input)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
