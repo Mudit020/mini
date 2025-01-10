@@ -1,0 +1,160 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #212121; /* Dark background */
+    color: #fff;
+}
+
+header {
+    background: linear-gradient(135deg, #e74c3c, #f39c12, #8e44ad); /* Multi-color gradient for dynamic header */
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 5px solid #e74c3c; /* Bright accent border */
+}
+
+header h1 {
+    font-size: 3rem;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 0 15px rgba(231, 76, 60, 1), 0 0 30px rgba(241, 196, 15, 1); /* Neon glow effect */
+}
+
+header p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 10px;
+    text-shadow: 0 0 5px rgba(241, 196, 15, 1); /* Neon glow effect */
+}
+
+.search-container {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #2ed573, #1e90ff); /* Neon gradient for search bar */
+}
+
+.search-bar {
+    width: 70%;
+    padding: 12px;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #333;
+    color: #fff;
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 1); /* Neon glow effect on focus */
+    background-color: #444;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px 20px;
+}
+
+.car-card {
+    background: linear-gradient(135deg, #8e44ad, #3498db); /* Bright gradient for car cards */
+    border-radius: 15px;
+    width: 280px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* Darker shadow on hover */
+}
+
+.car-card:hover img {
+    transform: scale(1.05);
+}
+
+.car-card .car-details {
+    padding: 20px;
+}
+
+.car-card .car-details h3 {
+    font-size: 1.8rem;
+    color: #f39c12;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 0 10px rgba(241, 196, 15, 1); /* Neon yellow glow effect */
+}
+
+.car-card .car-details p {
+    font-size: 1rem;
+    color: #bdc3c7;
+    margin: 5px 0;
+}
+
+.car-card .car-details .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e74c3c;
+    text-shadow: 0 0 5px rgba(231, 76, 60, 1); /* Neon red glow effect */
+}
+
+.see-btn {
+    background: linear-gradient(135deg, #e74c3c, #f39c12, #8e44ad); /* Colorful gradient */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.see-btn:hover {
+    background: linear-gradient(135deg, #f39c12, #8e44ad, #2ed573); /* Hover effect with different gradient */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.6); /* Neon glow effect on hover */
+}
+
+.see-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 1); /* Neon glow effect when focused */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #34495e; /* Dark footer background */
+    color: white;
+    margin-top: 30px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Shadow for footer */
+}
+
+footer p {
+    margin: 0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Footer glow effect */
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        width: 90%;
+    }
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
